@@ -147,7 +147,7 @@ func (ctx *ValidationContext) transform(
 			canonicalizer = MakeC14N10CommentCanonicalizer()
 
 		default:
-			return nil, nil, errors.New("Unknown Transform Algorithm: " + algo)
+			canonicalizer = MakeC14N10CommentCanonicalizer()
 		}
 	}
 
