@@ -119,9 +119,12 @@ func (ctx *ValidationContext) transform(
 	el = el.Copy()
 
 	var canonicalizer Canonicalizer
-
+	fmt.Printf("Transforms are: %#v\n", transforms)
 	for _, transform := range transforms {
 		algo := transform.Algorithm
+		fmt.Printf("Transform: %#v\n", transform)
+		fmt.Printf("Algo: %#v\n", algo)
+		fmt.Printf("AlgoID: %#v\n", AlgorithmID(algo))
 
 		switch AlgorithmID(algo) {
 		case EnvelopedSignatureAltorithmId:
@@ -152,7 +155,7 @@ func (ctx *ValidationContext) transform(
 	}
 
 	if canonicalizer == nil {
-		return nil, nil, errors.New("Expected canonicalization transform")
+		canonicalizer = MakeC14N10CommentCanonicalizer()
 	}
 
 	return el, canonicalizer, nil
